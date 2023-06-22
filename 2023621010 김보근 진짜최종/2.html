@@ -1,0 +1,79 @@
+<!doctype html>
+<html>
+<head>
+  <title>뚱이</title>
+  <meta charset="utf-8">
+
+  <style>
+     body {
+        background: linear-gradient(135deg, #c850c0, #4158d0);
+    }
+    a{
+      border:5px solid pink;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      margin: 5px;
+  
+    }
+    #clock {
+            font-size: 48px;
+            font-weight: bold;
+            text-align: center;
+            margin-top: 100px;
+        }
+        
+        #date {
+            font-size: 24px;
+            text-align: center;
+            margin-top: 20px;
+        }
+  </style>
+  
+</head>
+<body>
+  <h1><a href="4.html">네모바지 스폰지밥</a></h1>
+  <ol>
+    <li><a href="1.html">스폰지밥</a></li>
+    <li><a href="2.html">뚱이</a></li>
+    <li><a href="3.html">징징이</a></li>
+  </ol>
+  <hr>
+  <h2>뚱이</h2>
+
+  <div id="clock"></div>
+    <div id="date"></div>
+
+    <script>
+        function updateTime() {
+            var now = new Date();
+            var hours = now.getHours();
+            var minutes = now.getMinutes();
+            var seconds = now.getSeconds();
+            var date = now.toDateString();
+
+            hours = hours < 10 ? '0' + hours : hours;
+            minutes = minutes < 10 ? '0' + minutes : minutes;
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            var time = hours + ':' + minutes + ':' + seconds;
+
+            document.getElementById('clock').textContent = time;
+            document.getElementById('date').textContent = date;
+        }
+
+        setInterval(updateTime, 1000);
+    </script>
+
+  <img src="ENddl.jpg" width="300" height="300">
+  <p>
+    <p>스폰지밥의 옆 건너 옆집에 사는 이웃이자 가장 친한 친구.
+     좋게 말하면 순수하고 엉뚱한 것이 상당히 귀엽고 나쁘게 말하면 바보.</p>
+
+스폰지밥과 마찬가지로 분위기 파악을 잘 못하고 눈치가 없다. 
+예를 들어 남의 집(특히 징징이의 집)에 함부로 들어간다든지, 
+징징이가 화났을 때나 다람이가 고향 텍사스를 그리워하는 에피소드 막판에 분위기 파악을 못한다든지 등등.
+스폰지밥보다 그 정도가 더 심각해서, 가끔씩 보면 스폰지밥이 절교선언을 하지 않는 게 용하다고 느껴질 정도이다.
+사실 스폰지밥도 뚱이에 비하면 덜할 뿐이지 덜떨어지는 건 마찬가지다(...).
+  </p>
+</body>
+</html>

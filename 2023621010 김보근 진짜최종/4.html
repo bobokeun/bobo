@@ -1,0 +1,95 @@
+<!doctype html>
+<html>
+<head>
+  <title>네모바지 스폰지밥</title>
+  <meta charset="utf-8">
+  <style>
+     body {
+    background: greenyellow;
+}
+  </style>
+ 
+</head>
+<body>
+  <h1><a href="4.html">네모바지 스폰지밥</a></h1>
+  <ol>
+    <li><a href="1.html">스폰지밥</a></li>
+    <li><a href="2.html">뚱이</a></li>
+    <li><a href="3.html">징징이</a></li>
+  </ol>
+  <hr>
+  <h2>네모바지 스폰지밥</h2>
+  <img src="all.jpg"
+  >
+  <p>
+    1999년 5월 1일 니켈로디언 키즈 초이스 어워드에서 처음으로 방영한 바닷속의 도시인 비키니 시티(Bikini Bottom)에서 벌어지는 
+    이야기를 다룬 시트콤 형식의 코미디 애니메이션.
+<p>전 세계적으로 선풍적인 인기를 끌고 있는 애니메이션이자 
+    니켈로디언의 최전성기를 이끈 21세기 나온 최고의 애니메이션 중 하나이다.
+     타임지 선정 '최고의 애니메이션'이자, 니켈로디언 키즈 초이스 어워드 최우수 애니메이션 부분을 15회 연속으로 수상하였다.
+      매일 전 세계 200여 개국에서 2천7백만 명이 시청했다고 하며 60여 개 언어로 번역된 작품이다.</p>
+    
+  </p>
+
+  <div style="visibility: hidden; position: absolute" id="webcam-container"></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@latest/dist/tf.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@latest/dist/teachablemachine-image.min.js"></script>
+<script type="text/javascript">
+    // More API functions here:
+    // https://github.com/googlecreativelab/teachablemachine-community/tree/master/libraries/image
+
+    // the link to your model provided by Teachable Machine export panel
+    const URL = "https://teachablemachine.withgoogle.com/models/jVBqcnbGK/";
+
+    let model, webcam, labelContainer, maxPredictions;
+
+    // Load the image model and setup the webcam
+    async function init() {
+        const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+
+        // load the model and metadata
+        // Refer to tmImage.loadFromFiles() in the API to support files from a file picker
+        // or files from your local hard drive
+        // Note: the pose library adds "tmImage" object to your window (window.tmImage)
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+
+        // Convenience function to setup a webcam
+        const flip = true; // whether to flip the webcam
+        webcam = new tmImage.Webcam(200, 200, flip); // width, height, flip
+        await webcam.setup(); // request access to the webcam
+        await webcam.play();
+        window.requestAnimationFrame(loop);
+
+        // append elements to the DOM
+        document.getElementById("webcam-container").appendChild(webcam.canvas);
+        
+    }
+
+    async function loop() {
+        webcam.update(); // update the webcam frame
+        await predict();
+        window.requestAnimationFrame(loop);
+    }
+
+    // run the webcam image through the image model
+    async function predict() {
+        // predict can take in an image, video or canvas html element
+        const prediction = await model.predict(webcam.canvas);
+        console.log(prediction[0].probability);
+        if(prediction[0].probability > 0.5){
+          console.log('day');
+          document.querySelector('body').style.backgroundColor = 'white';
+          document.querySelector('body').style.color = 'black';
+        }else{
+          console.log('night');
+          document.querySelector('body').style.backgroundColor = 'black';
+          document.querySelector('body').style.color = 'white';
+        }
+    }
+    init();
+</script>
+</body>
+</html>
